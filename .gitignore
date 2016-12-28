@@ -1,5 +1,6 @@
 *.iml
 .idea
+.alm
 dist
 typings
 node_modules
