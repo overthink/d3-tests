@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    "module": "commonjs",
+    "target": "es5"
+  },
+  "filesGlob": [
+    "./src/*.ts"
+  ]
+}

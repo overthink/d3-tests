@@ -1,0 +1,29 @@
+{
+  "name": "d3-tests",
+  "version": "1.0.0",
+  "description": "Experimenting with d3 and TypeScript",
+  "main": "./dist/bundle.js",
+  "scripts": {
+    "typings": "node_modules/.bin/typings install",
+    "postinstall": "npm run typings",
+    "build": "node_modules/.bin/webpack",
+    "build:watch": "node_modules/.bin/webpack -w",
+    "clean": "rm ./dist/*"
+  },
+  "author": "Mark Feeney",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/d3": "^4.4.0",
+    "@types/immutable": "^3.8.6",
+    "brfs": "^1.4.3",
+    "source-map-loader": "^0.1.5",
+    "transform-loader": "^0.2.3",
+    "ts-loader": "^1.3.3",
+    "typescript": "^2.1.4",
+    "webpack": "^1.14.0"
+  },
+  "dependencies": {
+    "d3": "^4.4.0",
+    "immutable": "^3.8.1"
+  }
+}
