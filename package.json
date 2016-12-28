@@ -4,8 +4,6 @@
   "description": "Experimenting with d3 and TypeScript",
   "main": "./dist/bundle.js",
   "scripts": {
-    "typings": "node_modules/.bin/typings install",
-    "postinstall": "npm run typings",
     "build": "node_modules/.bin/webpack",
     "build:watch": "node_modules/.bin/webpack -w",
     "clean": "rm ./dist/*"
