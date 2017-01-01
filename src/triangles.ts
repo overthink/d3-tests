@@ -48,11 +48,12 @@ function tile(width: number, height: number, seed: Shape): Shape[] {
 
 export function main(): void {
     const seed: Triangle = [[20, 20], [120, 20], [20, 120]];
-    tile(width, height, seed).forEach((t: Triangle, i: number) => {
-        svg.append("path")
-            .attr("d", shapePathData(t))
-            .attr("fill", d3.color("steelblue").brighter(i/12).toString())
-            .attr("stroke", "black")
-            .attr("stroke-width", "3")
-    });
+    svg.selectAll("path")
+        .data(tile(width, height, seed))
+        .enter()
+        .append("path")
+        .attr("d", t => shapePathData(t))
+        .attr("fill", (_, i) => d3.color("steelblue").brighter(i / 12).toString())
+        .attr("stroke", "black")
+        .attr("stroke-width", "3");
 }
