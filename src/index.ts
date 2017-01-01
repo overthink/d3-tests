@@ -2,16 +2,18 @@ import * as d3 from "d3";
 import * as immutable from "immutable";
 import * as rp from "./randomPoints";
 import * as tri from "./triangles";
+import * as rt from "./rotatingTriangle";
 
 interface Example {
     readonly title: string,
     readonly run: () => void
 }
 
-// ideally I"d enumerate these programmatically
+// ideally I'd enumerate these programmatically
 const examples: immutable.Map<string, Example> = immutable.Map({
     "random-points": {title: "Random points", run: rp.main},
-    "triangles": {title: "Triangles", run: tri.main}
+    "triangles": {title: "Triangles", run: tri.main},
+    "rotating-triangle": {title: "Rotating Triangle", run: rt.main}
 });
 
 const defaultExample = examples.valueSeq().first();

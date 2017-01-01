@@ -1,30 +1,9 @@
 import * as d3 from "d3";
-import {Point} from "./common";
+import {Point, Shape, Triangle, shapePathData} from "./common";
 
-const width = 960;
-const height = 500;
-
-const svg = d3.select("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-type Shape = Point[];
-type Triangle = [Point, Point, Point];
-
-const lineFn = d3.line<Point>()
-    .x(d => d[0])
-    .y(d => d[1]);
-
-/**
- * Return SVG path data for the given triangle.
- */
-function shapePathData(t: Shape): string {
-    const result = lineFn(t);
-    if (result === null) {
-        throw "Expected string result";
-    }
-    return result + ",Z"; // force close the path, d3 only does this if fill is non-none
-}
+const svg = d3.select("svg");
+const width = +svg.attr("width");
+const height = +svg.attr("height");
 
 /**
  * Given a seed shape, return a sequence of shapes that tile a width x height
