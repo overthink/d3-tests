@@ -47,13 +47,15 @@ function tile(width: number, height: number, seed: Shape): Shape[] {
 }
 
 export function main(): void {
-    const seed: Triangle = [[20, 20], [120, 20], [20, 120]];
+    const blend = d3.interpolateRgb("steelblue", "orange");
+    const seed: Triangle = [[10, 10], [60, 10], [10, 60]];
+    const shapes = tile(width, height, seed);
     svg.selectAll("path")
-        .data(tile(width, height, seed))
+        .data(shapes)
         .enter()
         .append("path")
         .attr("d", t => shapePathData(t))
-        .attr("fill", (_, i) => d3.color("steelblue").brighter(i / 12).toString())
+        .attr("fill", (_, i) => blend(i / shapes.length))
         .attr("stroke", "black")
         .attr("stroke-width", "3");
 }
