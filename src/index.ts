@@ -3,6 +3,7 @@ import * as immutable from "immutable";
 import * as rp from "./randomPoints";
 import * as tri from "./triangles";
 import * as rt from "./rotatingTriangle";
+import * as ta from "./timerAnimation";
 
 interface Example {
     readonly title: string,
@@ -13,7 +14,8 @@ interface Example {
 const examples: immutable.Map<string, Example> = immutable.Map({
     "random-points": {title: "Random points", run: rp.main},
     "triangles": {title: "Triangles", run: tri.main},
-    "rotating-triangle": {title: "Rotating Triangle", run: rt.main}
+    "rotating-triangle": {title: "Rotating Triangle", run: rt.main},
+    "timer-animation": {title: "Use d3.timer() to animate", run: ta.main}
 });
 
 const defaultExample = examples.valueSeq().first();
