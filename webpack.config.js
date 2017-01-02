@@ -1,8 +1,19 @@
+var webpack = require('webpack');
+
 module.exports = {
     entry: "./src/index.ts",
+
     output: {
         filename: "./dist/bundle.js"
     },
+
+    // This uglify config works, but breaks source maps?
+    //
+    // plugins: [
+    //     new webpack.optimize.UglifyJsPlugin({
+    //         minimize: true
+    //     })
+    // ],
 
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
