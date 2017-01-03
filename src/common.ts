@@ -16,5 +16,5 @@ export function shapePathData(t: Shape): string {
     if (result === null) {
         throw "Expected string result";
     }
-    return result + ",Z"; // force close the path, d3 only does this if fill is non-none
+    return result + "Z"; // force close the path, d3 only does this if fill is non-none
 }
