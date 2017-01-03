@@ -12,19 +12,12 @@ export function main() {
         .attr("r", r)
         .attr("fill", "darkorange");
 
-    const x = d3.scaleLinear().domain([-1, 1]).range([r, width - r]);
-
-    let start = 0;
-    function move() {
-        const circle = svg.select("circle");
-        start += 0.02;
-        circle.attr("cx", x(-Math.cos(start)));
+    const circle = svg.select("circle");
+    function move(elapsed: number) {
+        // y = -cos(x)/2 + 0.5 gives nice oscillating output on [0, 1]
+        const fraction = -Math.cos(elapsed / 1000) / 2 + 0.5;
+        circle.attr("cx", r + (fraction * (width - 2 * r)));
     }
 
-    // const t = d3.timer(e => {
-    //     move(e);
-    //     if (e > 30000) t.stop();
-    // });
     d3.timer(move);
-
 }
