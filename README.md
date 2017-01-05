@@ -1,6 +1,7 @@
 # d3-tests
 
-Playing around with d3 and TypeScript.
+Playing around with d3 and TypeScript.  I try to keep a live demo of this code up to date at
+http://www.proofbyexample.com/demos/d3-tests/.
 
 ## Status
 
