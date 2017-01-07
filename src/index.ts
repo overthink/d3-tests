@@ -6,6 +6,7 @@ import {Example} from "./common";
 import {Triangles} from "./triangles";
 import {RotatingTriangle} from "./rotatingTriangle";
 import {TimerAnimation} from "./timerAnimation";
+import {Dots} from "./dots";
 
 // ideally I'd enumerate these programmatically somehow
 const exampleList = [
@@ -13,7 +14,8 @@ const exampleList = [
     new Triangles(),
     new RotatingTriangle(),
     new TimerAnimation(),
-    new Mouse()
+    new Mouse(),
+    new Dots()
 ];
 
 const examples = exampleList
