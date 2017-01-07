@@ -25,7 +25,9 @@ export class Mouse implements Example {
             .attr("r", 20)
             .transition()
             .duration(2000)
+            .attr("r", 0)
             .style("opacity", 0);
+
         circles.exit()
             .remove();
     }
