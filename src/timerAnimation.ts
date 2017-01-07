@@ -1,23 +1,31 @@
 import * as d3 from "d3";
+import {Example} from "./common";
 
-export function main() {
-    const svg = d3.select("svg");
-    const width = +svg.attr("width");
-    const height = +svg.attr("height");
-    const r = 50;
+export class TimerAnimation implements Example {
+    private readonly svg = d3.select("svg");
+    private readonly width = +this.svg.attr("width");
+    private readonly height = +this.svg.attr("height");
+    private readonly r = 50;
 
-    svg.append("circle")
-        .attr("cx", r)
-        .attr("cy", Math.floor(height / 2))
-        .attr("r", r)
-        .attr("fill", "darkorange");
+    slug = "timer-animation";
 
-    const circle = svg.select("circle");
-    function move(elapsed: number) {
-        // y = -cos(x)/2 + 0.5 gives nice oscillating output on [0, 1]
-        const fraction = -Math.cos(elapsed / 1000) / 2 + 0.5;
-        circle.attr("cx", r + (fraction * (width - 2 * r)));
+    title = "A circle moving around using d3.timer to animate";
+
+    start(): void {
+        this.svg.append("circle")
+            .attr("cx", this.r)
+            .attr("cy", Math.floor(this.height / 2))
+            .attr("r", this.r)
+            .attr("fill", "darkorange");
+
+        const circle = this.svg.select("circle");
+
+        const move = (elapsed: number) => {
+            // y = -cos(x)/2 + 0.5 gives nice oscillating output on [0, 1]
+            const fraction = -Math.cos(elapsed / 1000) / 2 + 0.5;
+            circle.attr("cx", this.r + (fraction * (this.width - 2 * this.r)));
+        };
+
+        d3.timer(move);
     }
-
-    d3.timer(move);
 }

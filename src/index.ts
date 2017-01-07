@@ -1,24 +1,23 @@
 import * as d3 from "d3";
-import * as immutable from "immutable";
-import * as rp from "./randomPoints";
-import * as tri from "./triangles";
-import * as rt from "./rotatingTriangle";
-import * as ta from "./timerAnimation";
-import * as m from "./mouse";
+import * as i from "immutable";
+import {RandomPoints} from "./randomPoints";
+import {Mouse} from "./mouse";
+import {Example} from "./common";
+import {Triangles} from "./triangles";
+import {RotatingTriangle} from "./rotatingTriangle";
+import {TimerAnimation} from "./timerAnimation";
 
-interface Example {
-    readonly title: string,
-    readonly run: () => void
-}
+// ideally I'd enumerate these programmatically somehow
+const exampleList = [
+    new RandomPoints(),
+    new Triangles(),
+    new RotatingTriangle(),
+    new TimerAnimation(),
+    new Mouse()
+];
 
-// ideally I'd enumerate these programmatically
-const examples: immutable.Map<string, Example> = immutable.Map({
-    "random-points": {title: "Random points", run: rp.main},
-    "triangles": {title: "Triangles", run: tri.main},
-    "rotating-triangle": {title: "Rotating Triangle", run: rt.main},
-    "timer-animation": {title: "Use d3.timer() to animate", run: ta.main},
-    "mouse": {title: "Do stuff with the mouse", run: m.main}
-});
+const examples = exampleList
+    .reduce((acc, ex) => acc.set(ex.slug, ex), i.Map<string, Example>());
 
 const defaultExample = examples.valueSeq().first();
 
@@ -33,7 +32,7 @@ function getSelected(queryString: string): string | undefined {
 }
 
 const selected = getSelected(window.location.search) || "random-points";
-examples.get(selected, defaultExample).run();
+examples.get(selected, defaultExample).start();
 
 // Make a clickable list of examples
 d3.select("ul.examples-list").selectAll("li")

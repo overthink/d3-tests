@@ -1,22 +1,22 @@
 import * as d3 from "d3";
-import {Point} from "./common";
+import {Point, Example} from "./common";
 
-export function main(): void {
+export class RandomPoints implements Example {
 
-    const svg = d3.select("svg");
-    const width = +svg.attr("width");
-    const height = +svg.attr("height");
+    private readonly svg = d3.select("svg");
+    private readonly width = +this.svg.attr("width");
+    private readonly height = +this.svg.attr("height");
 
-    const xRandom = d3.randomUniform(0, width);
-    const yRandom = d3.randomUniform(0, height);
+    private readonly xRandom = d3.randomUniform(0, this.width);
+    private readonly yRandom = d3.randomUniform(0, this.height);
 
-    function generatePoints(): Point[] {
+    private generatePoints(): Point[] {
         return d3.range(Math.random() * 50)
-            .map((): Point => [xRandom(), yRandom()]);
+            .map((): Point => [this.xRandom(), this.yRandom()]);
     }
 
-    function update(points: Point[]): void {
-        const circles = svg.selectAll("circle").data(points);
+    private update(points: Point[]): void {
+        const circles = this.svg.selectAll("circle").data(points);
 
         // create any new circles
         circles
@@ -46,9 +46,14 @@ export function main(): void {
             .remove();
     }
 
-    update(generatePoints());
+    slug = "random-points";
+    title = "animated random points";
+    start(): void {
+        this.update(this.generatePoints());
 
-    d3.interval(() => {
-        update(generatePoints());
-    }, 3000);
+        d3.interval(() => {
+            this.update(this.generatePoints());
+        }, 3000);
+    }
+
 }

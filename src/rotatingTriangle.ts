@@ -1,50 +1,55 @@
 import * as d3 from "d3";
-import {Triangle, shapePathData, Point} from "./common";
+import {Triangle, shapePathData, Point, Example} from "./common";
 
-export function main(): void {
+export class RotatingTriangle implements Example {
 
-    d3.select("head").append("style").text(`
-    .triangle {
-        fill: slategrey;
-        stroke: black;
-        stroke-width: 2;
-    }
-    `);
+    private readonly svg = d3.select("svg");
+    private readonly width = +this.svg.attr("width");
+    private readonly height = +this.svg.attr("height");
 
-    const svg = d3.select("svg");
-    const width = +svg.attr("width");
-    const height = +svg.attr("height");
-    const centre: Point = [Math.floor(width / 2), Math.floor(height / 2)];
-    const svgGroup = svg
-        .append("g")
-        .attr("transform", `translate(${centre[0]}, ${centre[1]})`); // (0,0) in the middle
+    private readonly centre: Point = [Math.floor(this.width / 2), Math.floor(this.height / 2)];
+    private readonly offset = 100;
+    private readonly seed: Triangle = [[0, this.offset], [0, 80 + this.offset], [-40, 80 + this.offset]];
 
-    // mark the centre point
-    svgGroup.append("circle")
-        .attr("cx", 0)
-        .attr("cy", 0)
-        .attr("r", 2)
-        .style("fill", "#ccc");
+    private readonly rotateFn = () => d3.interpolateString("rotate(0, 0, 0)", "rotate(360, 0, 0)");
 
-    console.log("in rotatingTriangle.ts");
-
-    const offset = 100;
-
-    const seed: Triangle = [[0, offset], [0, 80 + offset], [-40, 80 + offset]];
-    const rotateFn = () => d3.interpolateString("rotate(0, 0, 0)", "rotate(360, 0, 0)");
-
-    const triangle = svgGroup.append("path")
-        .attr("class", "triangle")
-        .attr("d", shapePathData(seed));
-
-    function repeat(): void {
-        triangle
+    private animate(): void {
+        this.svg.select(".triangle")
             .transition()
             .duration(5000)
             .ease(d3.easeLinear)
-            .attrTween("transform", rotateFn)
-            .on("end", repeat); // restart the transition as soon as it ends
+            .attrTween("transform", this.rotateFn)
+            .on("end", () => this.animate()); // restart the transition as soon as it ends
     }
 
-    repeat();
+    slug = "rotating-triangle";
+
+    title = "Rotating triangle using repeating transition";
+
+    start(): void {
+        d3.select("head").append("style").text(`
+        .triangle {
+            fill: slategrey;
+            stroke: black;
+            stroke-width: 2;
+        }
+        `);
+
+        const svgGroup = this.svg
+            .append("g")
+            .attr("transform", `translate(${this.centre[0]}, ${this.centre[1]})`); // (0,0) in the middle
+
+        // mark the centre point
+        svgGroup.append("circle")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", 2)
+            .style("fill", "#ccc");
+
+        svgGroup.append("path")
+            .attr("class", "triangle")
+            .attr("d", shapePathData(this.seed));
+
+        this.animate();
+    }
 }
