@@ -43,6 +43,7 @@ export class Mouse implements Example {
             const age = Date.now() - this.data[i].birthday;
             if (age > 3000) this.data.splice(i, 1);
         }
+        this.render(); // make sure svg matches data
     };
 
     title = "Draw with the mouse our touching the screen";
