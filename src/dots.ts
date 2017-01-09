@@ -47,10 +47,8 @@ function main(): void {
     d3.interval(() => render(perturb(data)), 500);
 }
 
-export class Dots implements Example {
-    title = "Line of dots drifting randomly up and down";
-    slug = "dots";
-    start() {
-        main();
-    }
-}
+export const example: Example =  {
+    title: "Line of dots drifting randomly up and down",
+    slug: "dots",
+    start: () => main()
+};
